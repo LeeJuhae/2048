@@ -7,18 +7,20 @@ const Play = () => {
 	// 	board : Board
 	// }
 	// const board = (state: RootState) => state.board
-	// let board: Array<Array<number>> = [[0, 0, 2, 0],[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 2, 0]];
 	let board: Array<Array<number>> = [[0, 0, 0, 0],[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 	const directions: Array<Array<number>> = [[-1,0],[0,1],[1,0],[0,-1]];
 	let direct_idx: number;
 	const initBoard = () => {
-		let random = [];
-		for(let i = 0 ; i < 4 ; i++) {
+		let random: Array<number> = [];
+		let cnt: number = 0;
+		for(let i = 0 ; cnt != 2 ; i++) {
 			random.push(Math.floor(Math.random() * 4))
-		}
-		for(let i = 0 ; i < 4 ;) {
-			board[random[i]][random[i+1]] = 2;
-			i += 2;
+			if (i % 2 === 1) {
+				if (board[random[i-1]][random[i]] === 0) {
+					board[random[i-1]][random[i]] = 2;
+					++cnt;
+				}
+			}
 		}
 		for(let i = 0 ; i < 4 ; i++)
 			console.log(board[i]);
